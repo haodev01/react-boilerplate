@@ -1,8 +1,8 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   { ignores: ['dist', 'vite.config.ts'] },
@@ -36,7 +36,6 @@ export default tseslint.config(
       'space-before-blocks': ['error', 'always'],
       'object-curly-spacing': [1, 'always'],
       indent: ['warn', 2],
-      semi: [1, 'never'],
       quotes: ['error', 'single'],
       'array-bracket-spacing': 1,
       'linebreak-style': 0,
@@ -47,4 +46,4 @@ export default tseslint.config(
       'arrow-spacing': 1
     }
   }
-)
+);
