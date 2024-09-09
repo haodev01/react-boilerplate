@@ -1,0 +1,2 @@
+export const SIDEBAR_FULL_WIDTH = 250;
+export const SIDEBAR_COLLAPSE_WIDTH = 80;
