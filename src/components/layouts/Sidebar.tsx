@@ -1,42 +1,23 @@
-import { IconDashboard, IconInventory, IconOrder, IconStore, IconSupplier } from '@/components/common/svgs';
-import { SidebarItem } from './sidebar-item';
+import { listMenu } from "@/constants/data";
+import Layout from "antd/es/layout";
+import Menu from "antd/es/menu";
+const { Sider } = Layout;
 
-const listMenu = [
-  {
-    name: 'Dashboard',
-    path: '/dashboard',
-    icon: <IconDashboard />
-  },
-  {
-    name: 'Inventory',
-    path: '/inventory',
-    icon: <IconInventory />
-  },
-  {
-    name: 'Suppliers',
-    path: '/suppliers',
-    icon: <IconSupplier />
-  },
-  {
-    name: 'Orders',
-    path: '/orders',
-    icon: <IconOrder />
-  },
-  {
-    name: 'Stores',
-    path: '/stores',
-    icon: <IconStore />
-  }
-];
 export const Sidebar = () => {
   return (
-    <div>
-      <img src='/images/logo.png' />
-      <aside className='mt-10'>
-        {listMenu.map((item, index) => (
-          <SidebarItem key={index} item={item} />
-        ))}
-      </aside>
-    </div>
+    <Sider
+      trigger={null}
+      style={{
+        height: "100vh",
+        padding: "16px 24px",
+      }}
+      theme="light"
+      width={280}
+    >
+      <div>
+        <img src="/images/logo.png" />
+        <Menu mode="inline" items={listMenu} className="py-6" />
+      </div>
+    </Sider>
   );
 };

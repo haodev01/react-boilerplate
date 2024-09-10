@@ -1,18 +1,32 @@
-import { useAppDispatch, useAppSelector } from '@/store/hook';
-import { setIsShowFull } from '@/store/reducers/layout-slice';
-import { Menu } from 'lucide-react';
-export const Header = () => {
-  const { isShowFull } = useAppSelector((state) => state.layout);
-  const dispatch = useAppDispatch();
-  const handleClick = () => {
-    dispatch(setIsShowFull(!isShowFull));
-  };
+import Layout from "antd/es/layout";
+import Button from "antd/es/button";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+
+interface IHeaderProps {
+  collapsed: boolean;
+  // eslint-disable-next-line no-unused-vars
+  setCollapsed: (collapsed: boolean) => void;
+}
+const { Header: HeaderAnt } = Layout;
+export const Header = (props: IHeaderProps) => {
+  const { collapsed, setCollapsed } = props;
   return (
-    <div className='flex items-center justify-between'>
-      <div>
-        <Menu onClick={handleClick} className='cursor-pointer' />
-      </div>
-      <h1>Header</h1>
-    </div>
+    <HeaderAnt
+      style={{
+        padding: 0,
+      }}
+      className="bg-white border-l-2"
+    >
+      <Button
+        type="text"
+        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          fontSize: "16px",
+          width: 64,
+          height: 64,
+        }}
+      />
+    </HeaderAnt>
   );
 };

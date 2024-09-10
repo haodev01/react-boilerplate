@@ -1,6 +1,6 @@
-import { useAppSelector } from '@/store/hook';
-import clsx from 'clsx';
-import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from "@/store/hook";
+import clsx from "clsx";
+import { Link, useLocation } from "react-router-dom";
 
 interface ISidebarItemProps {
   item: {
@@ -17,8 +17,8 @@ export const SidebarItem = (props: ISidebarItemProps) => {
     <Link
       to={item.path}
       className={clsx(
-        'hover:text-primary  flex items-center gap-x-4 py-4 text-md font-medium cursor-pointer',
-        path.pathname === item.path ? 'text-primary' : 'text-679'
+        "hover:text-primary  flex items-center gap-x-4 py-4 text-md font-medium cursor-pointer",
+        path.pathname === item.path ? "text-primary" : "text-679"
       )}
     >
       {item.icon}
