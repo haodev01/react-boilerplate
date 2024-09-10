@@ -1,55 +1,56 @@
-import { authApi } from '@/apis'
-import axios from 'axios'
+import { authApi } from '@/apis';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const http = axios.create({
-  baseURL: 'http://localhost:8017/v1',
+  baseURL: import.meta.env.VITE_API_URL,
   timeout: 1000 * 60 * 5,
   headers: {
     'Content-Type': 'application/json'
   },
   withCredentials: true
-})
+});
 
 http.interceptors.request.use(
   (config) => {
-    return config
+    return config;
   },
-  (error) => {
-    return Promise.reject(error)
+  (error: AxiosError): Promise<AxiosError> => {
+    return Promise.reject(error);
   }
-)
-let refrehTokenPromise: Promise<unknown> | null = null
+);
+let refrehTokenPromise: Promise<unknown> | null = null;
 http.interceptors.response.use(
-  (response) => {
-    return response
+  (response: AxiosResponse) => {
+    return response;
   },
-  async (error) => {
-    if (error.response.status === 401) {
-      await authApi.logout()
+  async (error: AxiosError) => {
+    if (error.response && error.response.status === 401) {
+      await authApi.logout();
     }
-    const originalRequest = error.config
-    if (error.response.status === 410 && !originalRequest._retry) {
-      originalRequest._retry = true
+    type OriginalRequest = AxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as OriginalRequest;
+    if (error.response && error.response.status === 410 && !originalRequest._retry) {
+      originalRequest._retry = true;
       if (!refrehTokenPromise) {
         refrehTokenPromise = authApi
           .refreshToken()
           .then(() => {})
           .catch(async () => {
-            await authApi.logout()
+            await authApi.logout();
           })
           .finally(() => {
-            refrehTokenPromise = null
-          })
+            refrehTokenPromise = null;
+          });
       }
       refrehTokenPromise.then(() => {
-        return http(originalRequest)
-      })
+        return http(originalRequest);
+      });
     }
-    if (error.response.status !== 410) {
-      throw new Error('Handle Error !410')
+    if (error.response && error.response.status !== 410) {
+      throw new Error('Handle Error !410');
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default http
+export default http;

@@ -3,6 +3,8 @@ import http from '@/lib/http';
 import { useAppSelector } from '@/store/hook';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DataTable, columns } from '@/components/common';
+import { payments } from '@/constants';
 
 export default function Home() {
   const user = useAppSelector(getUser);
@@ -22,6 +24,7 @@ export default function Home() {
   return (
     <div>
       <h1>{user.email}</h1>
+      <DataTable columns={columns} data={payments} />
       <button onClick={onLogout}>Logout</button>
       <div className='h-[5000px]'></div>
     </div>
