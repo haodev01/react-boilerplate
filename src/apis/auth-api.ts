@@ -1,5 +1,5 @@
-import { listApi } from '@/constants';
-import http from '@/lib/http';
+import { listApi } from "@/constants";
+import http, { ApiClient } from "@/lib/http";
 
 type IFormLogin = {
   email: string;
@@ -11,9 +11,12 @@ export const authApi = {
   },
   logout: async () => {
     await http.delete(listApi.logout);
-    location.href = '/signin';
+    location.href = "/signin";
   },
   refreshToken: async () => {
     await http.put(listApi.refreshToken);
-  }
+  },
+  account: async () => {
+    return await ApiClient.get("GameAccount/Info");
+  },
 };

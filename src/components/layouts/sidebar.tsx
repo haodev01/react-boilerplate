@@ -3,7 +3,11 @@ import Layout from "antd/es/layout";
 import Menu from "antd/es/menu";
 const { Sider } = Layout;
 
-export const Sidebar = () => {
+interface ISidebarProps {
+  collapsed: boolean;
+}
+export const Sidebar = (props: ISidebarProps) => {
+  const { collapsed } = props;
   return (
     <Sider
       trigger={null}
@@ -11,8 +15,11 @@ export const Sidebar = () => {
         height: "100vh",
         padding: "16px 24px",
       }}
+      collapsible
+      collapsed={collapsed}
       theme="light"
       width={280}
+      collapsedWidth={100}
     >
       <div>
         <img src="/images/logo.png" />
